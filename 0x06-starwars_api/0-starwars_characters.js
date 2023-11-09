@@ -1,4 +1,3 @@
-#!/usr/bin/node
 const request = require('request');
 
 // Base URL for the Star Wars API
@@ -31,9 +30,6 @@ function fetchCharactersFromMovie(movieId) {
           }
         });
       }
-
-      // console.log(`Characters in ${movieData.title}:`);
-      // Start fetching and printing characters
       fetchCharacterData(0);
     } else {
       console.error(`Error fetching movie data: ${error}`);
@@ -47,5 +43,5 @@ const movieId = process.argv[2];
 if (movieId) {
   fetchCharactersFromMovie(movieId);
 } else {
-  console.log('Please provide a movie ID as a command line argument (e.g., node script.js 3)');
+  console.log('Please provide a movie ID as a command line argument ');
 }
