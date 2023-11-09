@@ -7,25 +7,34 @@ const baseUrl = 'https://swapi.dev/api';
 // Function to fetch characters from a specific movie
 function fetchCharactersFromMovie(movieId) {
   const movieUrl = `${baseUrl}/films/${movieId}/`;
-  
+
   request(movieUrl, (error, response, body) => {
     if (!error && response.statusCode === 200) {
       const movieData = JSON.parse(body);
       const charactersUrl = movieData.characters;
 
-      console.log(`Characters in ${movieData.title}:`);
-      
-      // Fetch and print character names
-      charactersUrl.forEach((characterUrl, index) => {
+      // Function to fetch character data and print names
+      function fetchCharacterData(index) {
+        if (index >= charactersUrl.length) {
+          // All characters have been fetched and printed
+          return;
+        }
+        const characterUrl = charactersUrl[index];
         request(characterUrl, (error, response, body) => {
           if (!error && response.statusCode === 200) {
             const characterData = JSON.parse(body);
-            console.log(`${index + 1}. ${characterData.name}`);
+            console.log(characterData.name);
+            // Fetch the next character
+            fetchCharacterData(index + 1);
           } else {
             console.error(`Error fetching character data: ${error}`);
           }
         });
-      });
+      }
+
+      console.log(`Characters in ${movieData.title}:`);
+      // Start fetching and printing characters
+      fetchCharacterData(0);
     } else {
       console.error(`Error fetching movie data: ${error}`);
     }
