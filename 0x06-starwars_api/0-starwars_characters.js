@@ -32,7 +32,7 @@ function fetchCharactersFromMovie(movieId) {
         });
       }
 
-      console.log(`Characters in ${movieData.title}:`);
+      // console.log(`Characters in ${movieData.title}:`);
       // Start fetching and printing characters
       fetchCharacterData(0);
     } else {
